@@ -76,3 +76,13 @@ class InitializePlayers:
         for i in range(number_of_players):
             print("         " + self.players[i].name, end=" ")
         print("\n")
+
+    def get_list_of_players(self) -> str:
+        """
+        Returns the list of current players
+
+        Returns
+        -------
+            players:str
+        """
+        return self.players
