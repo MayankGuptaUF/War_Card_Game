@@ -3,6 +3,8 @@
 This is a card played for two players. For more information consult the `helper.txt` document.
 This project does not require any packages to be installed.
 
+For more clarifications refer to [War Card Game Wikipedia Page](https://en.wikipedia.org/wiki/War_(card_game))
+
 ## Running it locally
 
 1. run the game using the command `python3 main.py`
