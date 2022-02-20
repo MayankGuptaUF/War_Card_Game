@@ -109,7 +109,9 @@ class Play:
     final_winner = None
     ongoing_war = False
     battle_cards = {}
+
     war_chest = defaultdict(list)
+
     value = {
         "A": 13,
         "K": 12,
@@ -125,6 +127,7 @@ class Play:
         "3": 2,
         "2": 1,
     }
+
     def __init__(self, players: str):
         self.players = players
 
@@ -151,6 +154,7 @@ class Play:
                     return 0
             else:
                 self.battle_cards[player] = player.cards.pop()
+
 
     def battle(self):
         """
@@ -279,6 +283,7 @@ class Play:
             return
         else:
             self.war_battle(i - 1)
+
 
 
 def main():
