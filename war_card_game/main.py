@@ -1,4 +1,5 @@
 import random
+from collections import defaultdict
 
 
 class Card:
@@ -108,6 +109,7 @@ class Play:
     final_winner = None
     ongoing_war = False
     battle_cards = {}
+    war_chest = defaultdict(list)
     value = {
         "A": 13,
         "K": 12,
@@ -212,6 +214,72 @@ class Play:
                 print("    ********************************")
                 return
         print("    We are headed to a WAR")
+        self.war()
+
+    def war(self):
+        """
+        Create the decks for the war battle, call war_battle.
+
+        Returns
+        -------
+            None
+        """
+
+        for player in self.players:
+            for _ in range(4):
+                self.war_chest[player].append(player.cards.pop())
+        self.war_battle(3)
+
+    def war_battle(self, i: int) -> None:
+        """
+        Conduct the war until no more cards are left
+
+        Parameters
+        ----------
+        i:str
+            An integer tracking the turns left in this war.
+        Returns
+        -------
+            None
+        """
+        if i < 1:
+            return
+        current_winners = set()
+        max_card = 0
+        for player, cards in self.war_chest.items():
+            if self.value[cards[i].rank] >= max_card:
+                max_card = self.value[cards[i].rank]
+        for player, cards in self.war_chest.items():
+            print(
+                "    {} drew {} of {}".format(player.name, cards[i].rank, cards[i].suit)
+            )
+            if self.value[cards[i].rank] >= max_card:
+                current_winners.add(player)
+        print("\n")
+        if len(current_winners) == 1:
+            self.ongoing_war = False
+            winner = current_winners.pop()
+            print("\n\n    The winner of this WAR is {}    \n\n".format(winner.name))
+            for key, values in self.battle_cards.items():
+                winner.cards.insert(0, values)
+            self.battle_cards = {}
+            for key, cards in self.war_chest.items():
+                for card in cards:
+                    winner.cards.insert(0, card)
+
+            self.war_chest = defaultdict(list)
+
+            for player in self.players:
+                print(
+                    "    {} has {} cards remaining    ".format(
+                        player.name, len(player.cards)
+                    )
+                )
+            print("\n")
+            return
+        else:
+            self.war_battle(i - 1)
+
 
 def main():
     deck = CardDeck()
