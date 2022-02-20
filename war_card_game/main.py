@@ -103,6 +103,37 @@ class Deal:
             ]
 
 
+class Play:
+
+    final_winner = None
+    battle_cards = {}
+    def __init__(self, players: str):
+        self.players = players
+
+    def draw_cards(self):
+        """
+        Check if player has enough cards, if yes allow them to draw a card
+        for battle, else end the game.
+
+        Returns
+        -------
+            None
+        """
+        for i, player in enumerate(self.players):
+            if len(player.cards) == 0:
+                print("    ********************************")
+                print("\n              {} has lost".format(player.name))
+
+                self.players.pop(i)
+
+                if len(self.players) == 1:
+                    print("              {} has won    \n".format(self.players[0].name))
+                    print("    ********************************")
+                    self.final_winner = self.players[0].name
+                    return 0
+            else:
+                self.battle_cards[player] = player.cards.pop()
+
 def main():
     deck = CardDeck()
     register_players = InitializePlayers()
