@@ -102,5 +102,11 @@ class Deal:
                 i * cards_per_person : (i + 1) * cards_per_person
             ]
 
-        return self.players
 
+def main():
+    deck = CardDeck()
+    register_players = InitializePlayers()
+    players = register_players.get_list_of_players()
+    Deal(deck, players)
+
+main()
