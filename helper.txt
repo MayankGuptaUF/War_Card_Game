@@ -1,0 +1,43 @@
+# War_Card_Game
+
+                        ###############################################
+                                            Rules
+                        ###############################################
+
+
+1. The Game is played between two Players who start with a deck of 26 cards each.
+2. In each turn(called a battle) each player removes the top card from the deck and compare the cards.
+   Whichever player has the card of higher value wins that battle(Aces are high, and suits are ignored).This continues until one player has all the 52 cards.
+3. In case both players have the card of same value we go into a war.
+4. In a war, each player places 3 cards face down on the table. Then they remove another card, face up
+   from the pile, this continues until the tie is broken. Whoever wins the this war wins all the cards
+   on the table.
+5. If a war has not outcome, we go into another war. This continues until someone wins or runs out of
+   cards.
+6. If someone does not have have enough cards to participate in the battle, they instantly lose and the
+   opponent is declared the win.
+
+For more clarifications refer to [War Card Game Wikipedia Page](https://en.wikipedia.org/wiki/War_(card_game))
+
+
+                    #########################################################
+                                            Assumptions
+                    #########################################################
+
+
+1. This Game has only 2 players.
+2. Wikipedia states the following:
+   "Most descriptions of War are unclear about what happens if a player runs out of cards during a war.[2] In some variants, that player immediately loses."
+   We will be following this rule.
+   This Game assumes that if you want to participate in a War you need to have the minimum number of
+   cards, which is 4. (this is in addition to tiebreaker card already on the table)
+
+
+                    ##########################################################
+                                            Constraints
+                    ##########################################################
+
+
+1. Since this is a probabalistic game, there is a mathematical chance that the two decks are shuffled in
+   a way where we might get stuck in a loop where the number of cards that each deck has starts
+   oscillating towards the centre (26-26) instead of one deck becoming zero. For this purpose, when automating the game, if there is no winner after 10000 turns we end the game with no result.
