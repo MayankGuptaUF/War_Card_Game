@@ -50,4 +50,4 @@
 
 1. Given more time, I would like to allow the support for different rules such as rules where a player can continue to play with their leftover cards while in a war
    instead of instantly losing.
-2. On Wikipedia, the game is listed as a single player game, but on the web there are iterations of the game played with 2-14 players. I have tried to make my code modular in      that sense, i.e. in the the Deal class there is provision to distribute cards amongst upto 14 players.
+2. On Wikipedia, the game is listed as a two player game, but on the web there are iterations of the game played with 2-14 players. I have tried to make my code modular in      that sense, i.e. in the the Deal class there is provision to distribute cards amongst upto 14 players.
