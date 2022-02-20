@@ -107,6 +107,21 @@ class Play:
 
     final_winner = None
     battle_cards = {}
+    value = {
+        "A": 13,
+        "K": 12,
+        "Q": 11,
+        "J": 10,
+        "10": 9,
+        "9": 8,
+        "8": 7,
+        "7": 6,
+        "6": 5,
+        "5": 4,
+        "4": 3,
+        "3": 2,
+        "2": 1,
+    }
     def __init__(self, players: str):
         self.players = players
 
@@ -133,6 +148,41 @@ class Play:
                     return 0
             else:
                 self.battle_cards[player] = player.cards.pop()
+
+    def battle(self):
+        """
+        Conduct a battle between the players,if tie go to war
+
+        Returns
+        -------
+            None
+        """
+        if self.final_winner:
+            return
+        current_winners = set()
+        max_card = 0
+        for player, card in self.battle_cards.items():
+            if self.value[card.rank] >= max_card:
+                max_card = self.value[card.rank]
+        for player, card in self.battle_cards.items():
+            print("    {} drew {} of {}    ".format(player.name, card.rank, card.suit))
+            if self.value[card.rank] >= max_card:
+                current_winners.add(player)
+        print("\n")
+
+        if len(current_winners) == 1:
+            winner = current_winners.pop()
+            print("\n\n    The winner of this battle is {}    \n\n".format(winner.name))
+            for key, values in self.battle_cards.items():
+                winner.cards.insert(0, values)
+
+            for player in self.players:
+                print(
+                    "    {} has {} cards remaining    ".format(
+                        player.name, len(player.cards)
+                    )
+                )
+            print("\n")
 
 def main():
     deck = CardDeck()
