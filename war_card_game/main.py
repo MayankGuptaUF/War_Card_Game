@@ -104,3 +104,11 @@ class Deal:
 
         return self.players
 
+
+def main():
+    deck = CardDeck()
+    register_players = InitializePlayers()
+    players = register_players.get_list_of_players()
+    Deal(deck, players)
+
+main()
