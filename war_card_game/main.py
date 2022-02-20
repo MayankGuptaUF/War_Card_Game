@@ -1,4 +1,5 @@
 import random
+from collections import defaultdict
 
 
 class Card:
@@ -106,7 +107,9 @@ class Deal:
 class Play:
 
     final_winner = None
+    ongoing_war = False
     battle_cards = {}
+    war_chest = defaultdict(list)
 
     value = {
         "A": 13,
@@ -186,6 +189,100 @@ class Play:
                     )
                 )
             print("\n")
+        else:
+            self.ongoing_war = True
+            while self.ongoing_war:
+                self.prepare_for_war()
+        self.battle_cards = {}
+
+    def prepare_for_war(self):
+        """
+        Check if players have enough cards to participate in war.
+
+        Returns
+        -------
+            None
+        """
+        for i, player in enumerate(self.players):
+            if len(player.cards) < 4:
+                self.ongoing_war = False
+                self.players.pop(i)
+                self.final_winner = self.players[0]
+                print("    ********************************")
+                print(
+                    "    {} does not have enough cards to enter a WAR, {} is the winner".format(
+                        player.name, self.final_winner.name
+                    )
+                )
+                print("    ********************************")
+                return
+        print("    We are headed to a WAR")
+        self.war()
+
+    def war(self):
+        """
+        Create the decks for the war battle, call war_battle.
+
+        Returns
+        -------
+            None
+        """
+
+        for player in self.players:
+            for _ in range(4):
+                self.war_chest[player].append(player.cards.pop())
+        self.war_battle(3)
+
+    def war_battle(self, turns_left: int) -> None:
+        """
+        Conduct the war until no more cards are left
+
+        Parameters
+        ----------
+        turns_left:str
+            An integer tracking the turns left in this war.
+        Returns
+        -------
+            None
+        """
+        if turns_left < 1:
+            return
+        current_winners = set()
+        max_card = 0
+        for player, cards in self.war_chest.items():
+            if self.value[cards[i].rank] >= max_card:
+                max_card = self.value[cards[i].rank]
+        for player, cards in self.war_chest.items():
+            print(
+                "    {} drew {} of {}".format(player.name, cards[i].rank, cards[i].suit)
+            )
+            if self.value[cards[i].rank] >= max_card:
+                current_winners.add(player)
+        print("\n")
+        if len(current_winners) == 1:
+            self.ongoing_war = False
+            winner = current_winners.pop()
+            print("\n\n    The winner of this WAR is {}    \n\n".format(winner.name))
+            for key, values in self.battle_cards.items():
+                winner.cards.insert(0, values)
+            self.battle_cards = {}
+            for key, cards in self.war_chest.items():
+                for card in cards:
+                    winner.cards.insert(0, card)
+
+            self.war_chest = defaultdict(list)
+
+            for player in self.players:
+                print(
+                    "    {} has {} cards remaining    ".format(
+                        player.name, len(player.cards)
+                    )
+                )
+            print("\n")
+            return
+        else:
+            self.war_battle(turns_left - 1)
+
 
 
 def main():
@@ -193,5 +290,58 @@ def main():
     register_players = InitializePlayers()
     players = register_players.get_list_of_players()
     Deal(deck, players)
+    play_game = Play(players)
+    game_type = input("Automatic Game or turnwise? A/T ")
+    if(game_type!="" and game_type[0].lower() == "t":
+        play_game_turnwise(play_game)
+            else:
+        play_automatically(start)
+
+
+def play_automatically(play_game: Play):
+    """
+    This runs a simulation of the game to decide a winner
+
+    Parameters
+    ----------
+    play_game:Play
+        play_game is an object within which we conduct the battles and wars
+
+    Returns
+    -------
+        None
+    """
+    game_limit = 0
+    while not start.final_winner:
+        game_limit += 1
+        if game_limit < 10000:
+            value = play_game.draw_cards()
+            play_game.battle()
+        else:
+            print("\n\nMaximum number of turns reached, Game has ended \n\n")
+            break
+
+def play_game_turnwise(play_game: Play):
+    """
+    This allows users to play the game turnwise
+    Parameters
+    ----------
+    play_game:Play
+        play_game is an object within which we conduct the battles and wars
+
+    Returns
+    -------
+        None
+    """
+    round_number = 0
+    while not start.final_winner:
+        round_number += 1
+        begin = input("Round {},begin? Y/N ".format(round_number))
+        if begin.lower() == "" or begin.lower()[0] == "y":
+            value = play_game.draw_cards()
+            play_game.battle()
+        else:
+            print("\n\nGame interrupted,ending game \n\n")
+            break
 
 main()
