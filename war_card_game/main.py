@@ -103,6 +103,11 @@ class Deal:
             ]
 
 
+class Play:
+
+    def __init__(self, players: str):
+        self.players = players
+
 def main():
     deck = CardDeck()
     register_players = InitializePlayers()
