@@ -106,6 +106,7 @@ class Deal:
 class Play:
 
     final_winner = None
+    ongoing_war = False
     battle_cards = {}
 
     value = {
@@ -186,6 +187,34 @@ class Play:
                     )
                 )
             print("\n")
+        else:
+            self.ongoing_war = True
+            while self.ongoing_war:
+                self.prepare_for_war()
+        self.battle_cards = {}
+
+    def prepare_for_war(self):
+        """
+        Check if players have enough cards to participate in war.
+
+        Returns
+        -------
+            None
+        """
+        for i, player in enumerate(self.players):
+            if len(player.cards) < 4:
+                self.ongoing_war = False
+                self.players.pop(i)
+                self.final_winner = self.players[0]
+                print("    ********************************")
+                print(
+                    "    {} does not have enough cards to enter a WAR, {} is the winner".format(
+                        player.name, self.final_winner.name
+                    )
+                )
+                print("    ********************************")
+                return
+        print("    We are headed to a WAR")
 
 
 def main():
