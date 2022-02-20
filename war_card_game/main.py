@@ -12,6 +12,7 @@ class Card:
         self.rank = rank
         self.suit = suit
 
+
 class CardDeck:
     """
     The Class CardDeck is used to generate the card_decks which
