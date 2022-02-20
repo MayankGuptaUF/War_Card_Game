@@ -233,19 +233,19 @@ class Play:
                 self.war_chest[player].append(player.cards.pop())
         self.war_battle(3)
 
-    def war_battle(self, i: int) -> None:
+    def war_battle(self, turns_left: int) -> None:
         """
         Conduct the war until no more cards are left
 
         Parameters
         ----------
-        i:str
+        turns_left:str
             An integer tracking the turns left in this war.
         Returns
         -------
             None
         """
-        if i < 1:
+        if turns_left < 1:
             return
         current_winners = set()
         max_card = 0
@@ -281,7 +281,7 @@ class Play:
             print("\n")
             return
         else:
-            self.war_battle(i - 1)
+            self.war_battle(turns_left - 1)
 
 
 
