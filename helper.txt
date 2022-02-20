@@ -7,7 +7,8 @@
 
 1. The Game is played between two Players who start with a deck of 26 cards each.
 2. In each turn(called a battle) each player removes the top card from the deck and compare the cards.
-   Whichever player has the card of higher value wins that battle(Aces are high, and suits are ignored).This continues until one player has all the 52 cards.
+   Whichever player has the card of higher value wins that battle(Aces are high, and suits are ignored).
+   This continues until one player has all the 52 cards.
 3. In case both players have the card of same value we go into a war.
 4. In a war, each player places 3 cards face down on the table. Then they remove another card, face up
    from the pile, this continues until the tie is broken. Whoever wins the this war wins all the cards
@@ -32,10 +33,21 @@
 
 
                     ##########################################################
-                                            Constraints
+                                            Constraints/Corner Cases
                     ##########################################################
 
 
 1. Since this is a probabalistic game, there is a mathematical chance that the two decks are shuffled in
    a way where we might get stuck in a loop where the number of cards that each deck has starts
-   oscillating towards the centre (26-26) instead of one deck becoming zero. For this purpose, when automating the game, if there is no winner after 10000 turns we end the game with no result.
+   oscillating towards the centre (26-26) instead of one deck becoming zero.
+   For this purpose, when automating the game, if there is no winner after 10000 turns we end the game with no result.
+
+
+                    ##########################################################
+                                            Improvements
+                    ##########################################################
+
+
+1. Given more time, I would like to allow the support for different rules such as rules where a player can continue to play with their leftover cards while in a war
+   instead of instantly losing.
+2. On Wikipedia, the game is listed as a single player game, but on the web there are iterations of the game played with 2-14 players. I have tried to make my code modular in      that sense, i.e. in the the Deal class there is provision to distribute cards amongst upto 14 players.
