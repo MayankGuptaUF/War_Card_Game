@@ -85,6 +85,7 @@ class InitializePlayers:
         -------
             players:str
         """
+
         return self.players
 
 
@@ -100,3 +101,6 @@ class Deal:
             players[i].cards = deck.card_deck[
                 i * cards_per_person : (i + 1) * cards_per_person
             ]
+
+        return self.players
+
