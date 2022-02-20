@@ -7,6 +7,7 @@ from player import Player
 from initialize_players import InitializePlayers
 from deal import Deal
 from play import Play
+from config import GAME_LIMIT
 
 
 def main():
@@ -38,7 +39,7 @@ def play_automatically(play_game: Play) -> None:
     game_limit = 0
     while not play_game.final_winner:
         game_limit += 1
-        if game_limit < 10000:
+        if game_limit < GAME_LIMIT:
             value = play_game.draw_cards()
             play_game.battle()
         else:
