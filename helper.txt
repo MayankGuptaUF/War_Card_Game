@@ -40,7 +40,7 @@
 1. Since this is a probabalistic game, there is a mathematical chance that the two decks are shuffled in
    a way where we might get stuck in a loop where the number of cards that each deck has starts
    oscillating towards the centre (26-26) instead of one deck becoming zero.
-   For this purpose, when automating the game, if there is no winner after 10000 turns we end the game with no result.
+   For this purpose, when automating the game, if there is no winner after N turns (this is defined in config.py) we end the game with no result.
 
 
                     ##########################################################
