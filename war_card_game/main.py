@@ -290,5 +290,32 @@ def main():
     register_players = InitializePlayers()
     players = register_players.get_list_of_players()
     Deal(deck, players)
+    play_game = Play(players)
+    game_type = input("Automatic Game or turnwise? A/T ")
+    if(game_type!="" and game_type[0].lower() == "t":
+        play_game_turnwise(play_game)
+
+def play_game_turnwise(play_game: Play)->None:
+    """
+    This allows users to play the game turnwise
+    Parameters
+    ----------
+    play_game:Play
+        play_game is an object within which we conduct the battles and wars
+
+    Returns
+    -------
+        None
+    """
+    round_number = 0
+    while not start.final_winner:
+        round_number += 1
+        begin = input("Round {},begin? Y/N ".format(round_number))
+        if begin.lower() == "" or begin.lower()[0] == "y":
+            value = play_game.draw_cards()
+            play_game.battle()
+        else:
+            print("\n\nGame interrupted,ending game \n\n")
+            break
 
 main()
