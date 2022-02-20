@@ -294,6 +294,32 @@ def main():
     game_type = input("Automatic Game or turnwise? A/T ")
     if(game_type!="" and game_type[0].lower() == "t"):
         play_game_turnwise(play_game)
+    else:
+        play_automatically(play_game)
+
+
+def play_automatically(play_game: Play) -> None:
+    """
+    This runs a simulation of the game to decide a winner
+
+    Parameters
+    ----------
+    play_game:Play
+        play_game is an object within which we conduct the battles and wars
+
+    Returns
+    -------
+        None
+    """
+    game_limit = 0
+    while not play_game.final_winner:
+        game_limit += 1
+        if game_limit < 10000:
+            value = play_game.draw_cards()
+            play_game.battle()
+        else:
+            print("\n\nMaximum number of turns reached, Game has ended \n\n")
+            break
 
 def play_game_turnwise(play_game: Play):
     """
