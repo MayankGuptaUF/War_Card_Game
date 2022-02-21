@@ -12,7 +12,7 @@ class CardDeck:
     card_deck = []
 
     def __init__(self):
-        suits = ["Hearts", "Diamonds", "Spades", "Club"]
+        suits = ["Hearts", "Diamonds", "Spades", "Clubs"]
         ranks = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
         # I would have liked to use set in the place of a list. The
         # problem with set is that the value popped though arbitrary, is not
