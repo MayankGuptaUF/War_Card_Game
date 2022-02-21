@@ -16,6 +16,7 @@ def main():
     players = register_players.get_list_of_players()
     Deal(deck, players)
     play_game = Play(players)
+    # The default mode of the game is automatic
     game_type = input("Automatic Game or turnwise? A/T ")
     if(game_type!="" and game_type[0].lower() == "t"):
         play_game_turnwise(play_game)
