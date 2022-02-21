@@ -102,6 +102,7 @@ class Play:
                 return
         print("    We are headed to a WAR")
 
+        # Create the deck in the war chest for the war.
         for player in self.players:
             for _ in range(WAR_MIN_CARDS):
                 self.war_chest[player].append(player.cards.pop())
